@@ -1,0 +1,6 @@
+<form action="LoginServlet" method="post">
+Username: <input name="username"><br>
+Password: <input type="password" name="password"><br>
+<button>Login</button>
+</form>
+<a href="register.jsp">Register</a>

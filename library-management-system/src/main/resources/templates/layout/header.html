@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<!-- HEADER FRAGMENT -->
+<nav class="top-navbar" th:fragment="header">
+    <div class="navbar-left">
+        <div>
+            <div class="page-title" th:text="${pageTitle} ?: 'Dashboard'">Dashboard</div>
+            <div class="breadcrumb-custom" th:text="${pageSubtitle} ?: 'Tổng quan hệ thống'">Tổng quan hệ thống</div>
+        </div>
+    </div>
+
+    <div class="navbar-right">
+        <div class="navbar-search">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Tìm kiếm...">
+        </div>
+
+        <div class="navbar-icon-btn">
+            <i class="fas fa-bell"></i>
+            <span class="badge-dot"></span>
+        </div>
+
+        <div class="navbar-user">
+            <div class="avatar-placeholder">A</div>
+            <span class="user-name" th:text="${#authentication.name}">Admin</span>
+        </div>
+    </div>
+</nav>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập - Library Manager</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="login-page">
+    <div class="login-card">
+        <div class="login-header">
+            <div class="login-logo">
+                <i class="fas fa-book-open"></i>
+            </div>
+            <h2>Library Manager</h2>
+            <p class="login-subtitle">Đăng nhập vào hệ thống quản lý</p>
+        </div>
+
+        <div th:if="${param.error}" class="alert-custom danger">
+            <i class="fas fa-exclamation-circle"></i>
+            <span>Tên đăng nhập hoặc mật khẩu không đúng!</span>
+        </div>
+
+        <div th:if="${param.logout}" class="alert-custom success">
+            <i class="fas fa-check-circle"></i>
+            <span>Bạn đã đăng xuất thành công!</span>
+        </div>
+
+        <form th:action="@{/login}" method="post">
+            <div class="form-group-custom">
+                <label>Tên đăng nhập</label>
+                <input type="text" class="form-control-custom" name="username"
+                       placeholder="Nhập tên đăng nhập" required autofocus>
+            </div>
+
+            <div class="form-group-custom">
+                <label>Mật khẩu</label>
+                <input type="password" class="form-control-custom" name="password"
+                       placeholder="Nhập mật khẩu" required>
+            </div>
+
+            <button type="submit" class="btn-login">
+                <i class="fas fa-sign-in-alt"></i> Đăng nhập
+            </button>
+        </form>
+
+        <div class="login-footer">
+            <i class="fas fa-shield-alt"></i> Tài khoản mặc định: admin / admin123
+        </div>
+    </div>
+</div>
+</body>
+</html>

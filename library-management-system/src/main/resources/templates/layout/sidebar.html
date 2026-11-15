@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<!-- SIDEBAR FRAGMENT -->
+<aside class="sidebar" th:fragment="sidebar">
+    <div class="sidebar-brand">
+        <div class="brand-icon">
+            <i class="fas fa-book-open"></i>
+        </div>
+        <div class="brand-text">
+            Library
+            <small>Management System</small>
+        </div>
+    </div>
+
+    <ul class="sidebar-menu">
+        <li class="menu-label">Main Menu</li>
+        <li>
+            <a th:href="@{/dashboard}" th:classappend="${activeMenu == 'dashboard'} ? 'active'">
+                <i class="fas fa-home"></i> Dashboard
+            </a>
+        </li>
+
+        <li class="menu-label">Quản lý</li>
+        <li>
+            <a th:href="@{/books}" th:classappend="${activeMenu == 'books'} ? 'active'">
+                <i class="fas fa-book"></i> Sách
+            </a>
+        </li>
+        <li>
+            <a th:href="@{/categories}" th:classappend="${activeMenu == 'categories'} ? 'active'">
+                <i class="fas fa-tags"></i> Danh mục
+            </a>
+        </li>
+        <li>
+            <a th:href="@{/authors}" th:classappend="${activeMenu == 'authors'} ? 'active'">
+                <i class="fas fa-pen-nib"></i> Tác giả
+            </a>
+        </li>
+        <li>
+            <a th:href="@{/members}" th:classappend="${activeMenu == 'members'} ? 'active'">
+                <i class="fas fa-users"></i> Độc giả
+            </a>
+        </li>
+
+        <li class="menu-label">Nghiệp vụ</li>
+        <li>
+            <a th:href="@{/borrows}" th:classappend="${activeMenu == 'borrows'} ? 'active'">
+                <i class="fas fa-exchange-alt"></i> Mượn / Trả sách
+            </a>
+        </li>
+        <li>
+            <a th:href="@{/fines}" th:classappend="${activeMenu == 'fines'} ? 'active'">
+                <i class="fas fa-money-bill-wave"></i> Tiền phạt
+            </a>
+        </li>
+    </ul>
+
+    <div class="sidebar-footer">
+        <div class="user-info">
+            <div class="user-avatar">A</div>
+            <div class="user-details">
+                <div class="user-name" th:text="${#authentication.name}">Admin</div>
+                <div class="user-role">Quản trị viên</div>
+            </div>
+        </div>
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i> Đăng xuất
+            </button>
+        </form>
+    </div>
+</aside>
+</body>
+</html>

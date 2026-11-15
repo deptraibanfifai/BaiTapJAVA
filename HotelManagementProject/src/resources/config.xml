@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <database>jdbc:mysql://localhost:4306/hotel_db</database>
+    <user>root</user>
+    <password></password>
+</config>

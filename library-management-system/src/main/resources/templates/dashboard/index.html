@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Library Manager</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+<!-- Aurora Background -->
+<div class="aurora-bg">
+    <div class="aurora-layer aurora-1"></div>
+    <div class="aurora-layer aurora-2"></div>
+    <div class="aurora-layer aurora-3"></div>
+</div>
+
+<div th:replace="~{layout/sidebar :: sidebar}"></div>
+
+<div class="main-content">
+    <div th:replace="~{layout/header :: header}"></div>
+
+    <div class="content-area">
+        <!-- Welcome Banner -->
+        <div class="glass-card" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.3) 0%, rgba(139, 92, 246, 0.3) 100%); border: 1px solid rgba(99, 102, 241, 0.4); margin-bottom: 28px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+                <div>
+                    <h2 style="color: white; margin-bottom: 8px; font-size: 28px;">
+                        <i class="fas fa-hand-sparkles" style="margin-right: 10px;"></i>
+                        Chào mừng trở lại, <span th:text="${#authentication.name}">Admin</span>!
+                    </h2>
+                    <p style="color: rgba(255,255,255,0.8); margin: 0; font-size: 14px;">
+                        <i class="far fa-calendar-alt" style="margin-right: 6px;"></i>
+                        Hôm nay là <span th:text="${#temporals.format(#temporals.createNow(), 'EEEE, dd/MM/yyyy')}"></span>
+                    </p>
+                </div>
+                <div style="text-align: right;">
+                    <div style="color: rgba(255,255,255,0.7); font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Tổng hoạt động hôm nay</div>
+                    <div style="font-size: 42px; font-weight: 800; color: white; line-height: 1;" th:text="${stats.borrowsToday + stats.returnsToday}">0</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-row">
+            <div class="stat-mini">
+                <i class="fas fa-book" style="color: #6366f1;"></i>
+                <div>
+                    <div class="stat-mini-label">ĐẦU SÁCH</div>
+                    <div class="stat-mini-value" th:text="${stats.totalTitles}">0</div>
+                </div>
+            </div>
+
+            <div class="stat-mini">
+                <i class="fas fa-copy" style="color: #10b981;"></i>
+                <div>
+                    <div class="stat-mini-label">TỔNG BẢN SÁCH</div>
+                    <div class="stat-mini-value" th:text="${stats.totalCopies}">0</div>
+                </div>
+            </div>
+
+            <div class="stat-mini">
+                <i class="fas fa-hand-holding" style="color: #f59e0b;"></i>
+                <div>
+                    <div class="stat-mini-label">ĐANG MƯỢN</div>
+                    <div class="stat-mini-value" th:text="${stats.booksBorrowed}">0</div>
+                </div>
+            </div>
+
+            <div class="stat-mini">
+                <i class="fas fa-warehouse" style="color: #06b6d4;"></i>
+                <div>
+                    <div class="stat-mini-label">CÒN TRONG KHO</div>
+                    <div class="stat-mini-value" th:text="${stats.booksAvailable}">0</div>
+                </div>
+            </div>
+
+            <div class="stat-mini">
+                <i class="fas fa-users" style="color: #8b5cf6;"></i>
+                <div>
+                    <div class="stat-mini-label">ĐỘC GIẢ</div>
+                    <div class="stat-mini-value" th:text="${stats.totalMembers}">0</div>
+                </div>
+            </div>
+
+            <div class="stat-mini">
+                <i class="fas fa-arrow-right" style="color: #10b981;"></i>
+                <div>
+                    <div class="stat-mini-label">MƯỢN HÔM NAY</div>
+                    <div class="stat-mini-value" th:text="${stats.borrowsToday}">0</div>
+                </div>
+            </div>
+
+            <div class="stat-mini">
+                <i class="fas fa-arrow-left" style="color: #06b6d4;"></i>
+                <div>
+                    <div class="stat-mini-label">TRẢ HÔM NAY</div>
+                    <div class="stat-mini-value" th:text="${stats.returnsToday}">0</div>
+                </div>
+            </div>
+
+            <div class="stat-mini" th:if="${!stats.overdueReceipts.isEmpty()}" style="border-color: rgba(239, 68, 68, 0.4);">
+                <i class="fas fa-exclamation-triangle" style="color: #ef4444;"></i>
+                <div>
+                    <div class="stat-mini-label">QUÁ HẠN</div>
+                    <div class="stat-mini-value" style="color: #ef4444;" th:text="${stats.overdueReceipts.size()}">0</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Row -->
+        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px; margin-bottom: 24px;">
+            <div class="glass-card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <div>
+                        <h3 style="margin-bottom: 4px;"><i class="fas fa-chart-line" style="color: #6366f1; margin-right: 8px;"></i>Lượt mượn theo tháng</h3>
+                        <p style="color: var(--text-muted); font-size: 12px; margin: 0;">12 tháng gần nhất</p>
+                    </div>
+                    <span class="stat-mini-label" style="background: rgba(99, 102, 241, 0.15); padding: 6px 12px; border-radius: 8px; color: #6366f1;">12 THÁNG</span>
+                </div>
+                <div style="position: relative; height: 300px;">
+                    <canvas id="borrowsChart"></canvas>
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <div style="margin-bottom: 20px;">
+                    <h3 style="margin-bottom: 4px;"><i class="fas fa-chart-pie" style="color: #8b5cf6; margin-right: 8px;"></i>Sách theo thể loại</h3>
+                    <p style="color: var(--text-muted); font-size: 12px; margin: 0;">Phân bổ danh mục</p>
+                </div>
+                <div style="position: relative; height: 300px;">
+                    <canvas id="categoryChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Overdue & Quick Actions -->
+        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px;">
+            <!-- Overdue -->
+            <div th:if="${!stats.overdueReceipts.isEmpty()}" class="glass-card" style="border-color: rgba(239, 68, 68, 0.3);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h3 style="color: #ef4444; margin: 0;">
+                        <i class="fas fa-exclamation-triangle" style="margin-right: 8px;"></i>Phiếu mượn quá hạn
+                    </h3>
+                    <span style="background: rgba(239, 68, 68, 0.15); color: #ef4444; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 600;" th:text="${stats.overdueReceipts.size()} + ' phiếu'">0 phiếu</span>
+                </div>
+                <div style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <thead>
+                        <tr style="border-bottom: 1px solid var(--glass-border);">
+                            <th style="text-align: left; padding: 12px 8px; color: var(--text-muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;">Mã phiếu</th>
+                            <th style="text-align: left; padding: 12px 8px; color: var(--text-muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;">Độc giả</th>
+                            <th style="text-align: left; padding: 12px 8px; color: var(--text-muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;">Ngày mượn</th>
+                            <th style="text-align: left; padding: 12px 8px; color: var(--text-muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;">Hạn trả</th>
+                            <th style="text-align: right; padding: 12px 8px; color: var(--text-muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;">Thao tác</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="receipt : ${stats.overdueReceipts}" style="border-bottom: 1px solid var(--glass-border);">
+                            <td style="padding: 14px 8px; font-weight: 600;" th:text="${receipt.receiptCode}"></td>
+                            <td style="padding: 14px 8px;" th:text="${receipt.memberName}"></td>
+                            <td style="padding: 14px 8px; color: var(--text-secondary);" th:text="${#temporals.format(receipt.borrowDate, 'dd/MM/yyyy')}"></td>
+                            <td style="padding: 14px 8px;">
+                                <span style="background: rgba(239, 68, 68, 0.15); color: #ef4444; padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 600;" th:text="${#temporals.format(receipt.dueDate, 'dd/MM/yyyy')}"></span>
+                            </td>
+                            <td style="padding: 14px 8px; text-align: right;">
+                                <a th:href="@{/borrows/return/{id}(id=${receipt.id})}" class="btn-glow warning" style="padding: 6px 12px; font-size: 12px;">
+                                    <i class="fas fa-undo"></i> Trả sách
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="glass-card">
+                <div style="margin-bottom: 20px;">
+                    <h3 style="margin-bottom: 4px;"><i class="fas fa-bolt" style="color: #f59e0b; margin-right: 8px;"></i>Thao tác nhanh</h3>
+                    <p style="color: var(--text-muted); font-size: 12px; margin: 0;">Truy cập nhanh các chức năng</p>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <a th:href="@{/borrows/create}" class="btn-glow primary" style="justify-content: center;">
+                        <i class="fas fa-plus-circle"></i> Tạo phiếu mượn
+                    </a>
+                    <a th:href="@{/books/create}" class="btn-glow success" style="justify-content: center;">
+                        <i class="fas fa-book-medical"></i> Thêm sách mới
+                    </a>
+                    <a th:href="@{/members/create}" class="btn-glow info" style="justify-content: center;">
+                        <i class="fas fa-user-plus"></i> Thêm độc giả
+                    </a>
+                    <a th:href="@{/fines}" class="btn-glow warning" style="justify-content: center;">
+                        <i class="fas fa-money-bill"></i> Xem tiền phạt
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script th:inline="javascript">
+    const borrowsByMonth = /*[[${stats.borrowsByMonth}]]*/ {};
+    const booksByCategory = /*[[${stats.booksByCategory}]]*/ {};
+
+    // Chart.js dark theme defaults
+    Chart.defaults.color = 'rgba(255, 255, 255, 0.5)';
+    Chart.defaults.borderColor = 'rgba(255, 255, 255, 0.08)';
+    Chart.defaults.font.family = "'Inter', sans-serif";
+
+    // Borrows Line Chart
+    const borrowsCtx = document.getElementById('borrowsChart').getContext('2d');
+    const borrowsGradient = borrowsCtx.createLinearGradient(0, 0, 0, 300);
+    borrowsGradient.addColorStop(0, 'rgba(99, 102, 241, 0.4)');
+    borrowsGradient.addColorStop(1, 'rgba(99, 102, 241, 0)');
+
+    new Chart(borrowsCtx, {
+        type: 'line',
+        data: {
+            labels: Object.keys(borrowsByMonth),
+            datasets: [{
+                label: 'Lượt mượn',
+                data: Object.values(borrowsByMonth),
+                borderColor: '#6366f1',
+                backgroundColor: borrowsGradient,
+                borderWidth: 3,
+                tension: 0.4,
+                fill: true,
+                pointBackgroundColor: '#6366f1',
+                pointBorderColor: '#fff',
+                pointBorderWidth: 2,
+                pointRadius: 4,
+                pointHoverRadius: 7,
+                pointHoverBackgroundColor: '#8b5cf6'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    backgroundColor: 'rgba(15, 21, 53, 0.9)',
+                    titleColor: '#fff',
+                    bodyColor: '#fff',
+                    borderColor: 'rgba(99, 102, 241, 0.3)',
+                    borderWidth: 1,
+                    padding: 12,
+                    cornerRadius: 10,
+                    displayColors: false
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                    ticks: { stepSize: 1 }
+                },
+                x: {
+                    grid: { display: false }
+                }
+            }
+        }
+    });
+
+    // Category Doughnut Chart
+    const categoryCtx = document.getElementById('categoryChart').getContext('2d');
+    new Chart(categoryCtx, {
+        type: 'doughnut',
+        data: {
+            labels: Object.keys(booksByCategory),
+            datasets: [{
+                data: Object.values(booksByCategory),
+                backgroundColor: [
+                    '#6366f1', '#10b981', '#f59e0b', '#06b6d4', '#ef4444', '#8b5cf6', '#ec4899', '#14b8a6'
+                ],
+                borderWidth: 0,
+                hoverOffset: 12
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '70%',
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        padding: 14,
+                        usePointStyle: true,
+                        pointStyle: 'circle',
+                        font: { size: 11 }
+                    }
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(15, 21, 53, 0.9)',
+                    borderColor: 'rgba(139, 92, 246, 0.3)',
+                    borderWidth: 1,
+                    padding: 12,
+                    cornerRadius: 10
+                }
+            }
+        }
+    });
+</script>
+</body>
+</html>

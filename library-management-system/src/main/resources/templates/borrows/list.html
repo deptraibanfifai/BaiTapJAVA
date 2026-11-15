@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${pageTitle}">Quản lý Mượn/Trả</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{layout/sidebar :: sidebar}"></div>
+
+<div class="main-content">
+    <div th:replace="~{layout/header :: header}"></div>
+
+    <div class="content-area">
+        <div th:if="${successMessage}" class="alert-custom success">
+            <i class="fas fa-check-circle"></i>
+            <span th:text="${successMessage}"></span>
+        </div>
+        <div th:if="${errorMessage}" class="alert-custom danger">
+            <i class="fas fa-exclamation-circle"></i>
+            <span th:text="${errorMessage}"></span>
+        </div>
+
+        <div class="page-header">
+            <h2><i class="fas fa-exchange-alt"></i> <span th:text="${pageTitle}">Mượn/Trả sách</span></h2>
+            <a th:href="@{/borrows/create}" class="btn-custom primary">
+                <i class="fas fa-plus-circle"></i> Tạo phiếu mượn
+            </a>
+        </div>
+
+        <div class="content-card">
+            <div class="card-body-custom" style="padding: 0; overflow-x: auto;">
+                <table class="table-custom">
+                    <thead>
+                    <tr>
+                        <th>Mã phiếu</th>
+                        <th>Độc giả</th>
+                        <th>Ngày mượn</th>
+                        <th>Hạn trả</th>
+                        <th>Ngày trả</th>
+                        <th>Trạng thái</th>
+                        <th style="text-align: center;">Thao tác</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="borrow : ${borrows}">
+                        <td>
+                            <strong th:text="${borrow.receiptCode}"></strong>
+                        </td>
+                        <td th:text="${borrow.memberName}"></td>
+                        <td th:text="${#temporals.format(borrow.borrowDate, 'dd/MM/yyyy')}"></td>
+                        <td th:text="${#temporals.format(borrow.dueDate, 'dd/MM/yyyy')}"></td>
+                        <td th:text="${borrow.returnDate != null} ? ${#temporals.format(borrow.returnDate, 'dd/MM/yyyy')} : '-'"></td>
+                        <td>
+                                    <span class="badge-custom"
+                                          th:classappend="${borrow.status == 'BORROWED'} ? 'warning' : (${borrow.status == 'RETURNED'} ? 'success' : 'danger')"
+                                          th:text="${borrow.status == 'BORROWED'} ? 'Đang mượn' : (${borrow.status == 'RETURNED'} ? 'Đã trả' : 'Quá hạn')"></span>
+                        </td>
+                        <td style="text-align: center;">
+                            <a th:href="@{/borrows/return/{id}(id=${borrow.id})}"
+                               class="btn-custom info sm"
+                               th:if="${borrow.status == 'BORROWED'}">
+                                <i class="fas fa-undo"></i> Trả sách
+                            </a>
+                            <span th:if="${borrow.status != 'BORROWED'}" class="text-muted" style="font-size: 13px;">
+                                        <i class="fas fa-check-circle"></i> Hoàn tất
+                                    </span>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(borrows)}">
+                        <td colspan="7">
+                            <div class="empty-state">
+                                <i class="fas fa-exchange-alt"></i>
+                                <p>Chưa có phiếu mượn nào</p>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

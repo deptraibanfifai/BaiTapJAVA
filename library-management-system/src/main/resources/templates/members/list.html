@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${pageTitle}">Quản lý Độc giả</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{layout/sidebar :: sidebar}"></div>
+
+<div class="main-content">
+    <div th:replace="~{layout/header :: header}"></div>
+
+    <div class="content-area">
+        <div th:if="${successMessage}" class="alert-custom success">
+            <i class="fas fa-check-circle"></i>
+            <span th:text="${successMessage}"></span>
+        </div>
+        <div th:if="${errorMessage}" class="alert-custom danger">
+            <i class="fas fa-exclamation-circle"></i>
+            <span th:text="${errorMessage}"></span>
+        </div>
+
+        <div class="page-header">
+            <h2><i class="fas fa-users"></i> <span th:text="${pageTitle}">Độc giả</span></h2>
+            <a th:href="@{/members/create}" class="btn-custom primary">
+                <i class="fas fa-user-plus"></i> Thêm mới
+            </a>
+        </div>
+
+        <div class="content-card">
+            <div class="card-body-custom" style="padding: 0; overflow-x: auto;">
+                <table class="table-custom">
+                    <thead>
+                    <tr>
+                        <th>Mã ĐG</th>
+                        <th>Họ tên</th>
+                        <th>Email</th>
+                        <th>SĐT</th>
+                        <th>Địa chỉ</th>
+                        <th>Ngày đăng ký</th>
+                        <th style="text-align: center;">Thao tác</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="member : ${members}">
+                        <td>
+                            <span class="badge-custom primary" th:text="${member.memberCode}"></span>
+                        </td>
+                        <td>
+                            <strong th:text="${member.fullName}"></strong>
+                        </td>
+                        <td th:text="${member.email} ?: '-'"></td>
+                        <td th:text="${member.phone} ?: '-'"></td>
+                        <td th:text="${member.address} ?: '-'"></td>
+                        <td th:text="${#temporals.format(member.registrationDate, 'dd/MM/yyyy')}"></td>
+                        <td style="text-align: center;">
+                            <a th:href="@{/members/edit/{id}(id=${member.id})}" class="btn-custom warning sm icon-only">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <form th:action="@{/members/delete/{id}(id=${member.id})}" method="post" style="display:inline;">
+                                <button type="submit" class="btn-custom danger sm icon-only"
+                                        onclick="return confirm('Xác nhận xóa?')">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(members)}">
+                        <td colspan="7">
+                            <div class="empty-state">
+                                <i class="fas fa-users"></i>
+                                <p>Chưa có độc giả nào</p>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

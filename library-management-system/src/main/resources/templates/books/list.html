@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${pageTitle}">Quản lý Sách</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<!-- Aurora Background -->
+<div class="aurora-bg">
+    <div class="aurora-layer aurora-1"></div>
+    <div class="aurora-layer aurora-2"></div>
+    <div class="aurora-layer aurora-3"></div>
+</div>
+
+<div th:replace="~{layout/sidebar :: sidebar}"></div>
+
+<div class="main-content">
+    <div th:replace="~{layout/header :: header}"></div>
+
+    <div class="content-area">
+        <!-- Alerts -->
+        <div th:if="${successMessage}" class="glass-alert success">
+            <i class="fas fa-check-circle"></i>
+            <span th:text="${successMessage}"></span>
+        </div>
+        <div th:if="${errorMessage}" class="glass-alert danger">
+            <i class="fas fa-exclamation-circle"></i>
+            <span th:text="${errorMessage}"></span>
+        </div>
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <div>
+                <h2><i class="fas fa-book-open"></i> <span th:text="${pageTitle}">Sách</span></h2>
+                <p class="page-subtitle" th:text="${pageSubtitle}">Quản lý kho sách</p>
+            </div>
+            <a th:href="@{/books/create}" class="btn-glow primary">
+                <i class="fas fa-plus"></i> Thêm sách mới
+            </a>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="stats-row">
+            <div class="stat-mini">
+                <i class="fas fa-book"></i>
+                <div>
+                    <div class="stat-mini-value" th:text="${totalElements}">0</div>
+                    <div class="stat-mini-label">Tổng sách</div>
+                </div>
+            </div>
+            <div class="stat-mini">
+                <i class="fas fa-check-circle" style="color: #10b981;"></i>
+                <div>
+                    <div class="stat-mini-value" style="color: #10b981;">Sẵn sàng</div>
+                    <div class="stat-mini-label">Có thể mượn</div>
+                </div>
+            </div>
+            <div class="stat-mini">
+                <i class="fas fa-exclamation-circle" style="color: #ef4444;"></i>
+                <div>
+                    <div class="stat-mini-value" style="color: #ef4444;">Hết</div>
+                    <div class="stat-mini-label">Cần bổ sung</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Books Grid -->
+        <div class="books-grid">
+            <div th:each="book : ${books}" class="book-card">
+                <div class="book-cover" th:if="${book.coverImage}">
+                    <img th:src="@{${book.coverImage}}" alt="Cover">
+                </div>
+                <div class="book-cover-placeholder" th:unless="${book.coverImage}">
+                    <i class="fas fa-book"></i>
+                </div>
+
+                <div class="book-info">
+                    <div class="book-category" th:text="${book.categoryName}">Danh mục</div>
+                    <h3 class="book-title" th:text="${book.title}">Tên sách</h3>
+                    <div class="book-author">
+                        <i class="fas fa-pen-nib"></i>
+                        <span th:text="${book.authorName}">Tác giả</span>
+                    </div>
+
+                    <div class="book-meta">
+                        <div class="meta-item">
+                            <i class="fas fa-barcode"></i>
+                            <span th:text="${book.bookCode}">BK001</span>
+                        </div>
+                        <div class="meta-item" th:if="${book.isbn}">
+                            <i class="fas fa-fingerprint"></i>
+                            <span th:text="${book.isbn}">ISBN</span>
+                        </div>
+                    </div>
+
+                    <div class="book-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Tổng</span>
+                            <span class="stat-value" th:text="${book.quantity}">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Còn</span>
+                            <span class="stat-value"
+                                  th:classappend="${book.availableQuantity > 0} ? 'available' : 'unavailable'"
+                                  th:text="${book.availableQuantity}">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Giá</span>
+                            <span class="stat-value price" th:text="${#numbers.formatCurrency(book.price)}">0đ</span>
+                        </div>
+                    </div>
+
+                    <div class="book-actions">
+                        <a th:href="@{/books/edit/{id}(id=${book.id})}" class="btn-action edit">
+                            <i class="fas fa-edit"></i> Sửa
+                        </a>
+                        <form th:action="@{/books/delete/{id}(id=${book.id})}" method="post" style="display:inline;">
+                            <button type="submit" class="btn-action delete"
+                                    onclick="return confirm('Xác nhận xóa sách này?')">
+                                <i class="fas fa-trash"></i> Xóa
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div th:if="${#lists.isEmpty(books)}" class="empty-state-glass">
+                <i class="fas fa-book-open"></i>
+                <h3>Chưa có sách nào</h3>
+                <p>Hãy thêm sách đầu tiên vào thư viện</p>
+                <a th:href="@{/books/create}" class="btn-glow primary">
+                    <i class="fas fa-plus"></i> Thêm sách
+                </a>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div th:if="${totalPages > 1}" class="pagination-glass">
+            <div class="pagination-info">
+                Trang <strong th:text="${currentPage + 1}">1</strong> / <strong th:text="${totalPages}">1</strong>
+                • Tổng <strong th:text="${totalElements}">0</strong> sách
+            </div>
+            <div class="pagination-controls">
+                <a th:href="@{/books(page=${currentPage - 1}, size=${10})}"
+                   class="page-btn"
+                   th:classappend="${currentPage == 0} ? 'disabled'">
+                    <i class="fas fa-chevron-left"></i>
+                </a>
+                <a th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+                   th:href="@{/books(page=${i}, size=${10})}"
+                   class="page-btn"
+                   th:classappend="${currentPage == i} ? 'active'"
+                   th:text="${i + 1}">1</a>
+                <a th:href="@{/books(page=${currentPage + 1}, size=${10})}"
+                   class="page-btn"
+                   th:classappend="${currentPage >= totalPages - 1} ? 'disabled'">
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

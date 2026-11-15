@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Trả Sách</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{layout/sidebar :: sidebar}"></div>
+
+<div class="main-content">
+    <div th:replace="~{layout/header :: header}"></div>
+
+    <div class="content-area">
+        <div th:if="${successMessage}" class="alert-custom success">
+            <i class="fas fa-check-circle"></i>
+            <span th:text="${successMessage}"></span>
+        </div>
+
+        <div class="page-header">
+            <h2><i class="fas fa-undo"></i> Trả Sách</h2>
+            <a th:href="@{/borrows}" class="btn-custom secondary">
+                <i class="fas fa-arrow-left"></i> Quay lại
+            </a>
+        </div>
+
+        <!-- Thông tin phiếu -->
+        <div class="content-card mb-4">
+            <div class="card-header-custom" style="background: rgba(6, 182, 212, 0.1);">
+                <h3 style="color: var(--accent-info);">
+                    <i class="fas fa-file-alt"></i> Thông tin phiếu mượn
+                </h3>
+                <span class="badge-custom"
+                      th:classappend="${borrow.status == 'BORROWED'} ? 'warning' : 'success'"
+                      th:text="${borrow.status == 'BORROWED'} ? 'Đang mượn' : 'Đã trả'"></span>
+            </div>
+            <div class="card-body-custom">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div style="margin-bottom: 16px;">
+                            <div style="color: var(--text-muted); font-size: 12px; margin-bottom: 4px;">Mã phiếu</div>
+                            <div style="font-size: 18px; font-weight: 600;" th:text="${borrow.receiptCode}"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div style="margin-bottom: 16px;">
+                            <div style="color: var(--text-muted); font-size: 12px; margin-bottom: 4px;">Độc giả</div>
+                            <div style="font-size: 16px; font-weight: 500;" th:text="${borrow.memberName}"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div style="margin-bottom: 16px;">
+                            <div style="color: var(--text-muted); font-size: 12px; margin-bottom: 4px;">Ngày mượn</div>
+                            <div th:text="${#temporals.format(borrow.borrowDate, 'dd/MM/yyyy')}"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div style="margin-bottom: 16px;">
+                            <div style="color: var(--text-muted); font-size: 12px; margin-bottom: 4px;">Hạn trả</div>
+                            <div th:text="${#temporals.format(borrow.dueDate, 'dd/MM/yyyy')}"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Danh sách sách -->
+        <div class="content-card">
+            <div class="card-header-custom d-flex justify-content-between align-items-center">
+                <h3><i class="fas fa-list"></i> Danh sách sách mượn</h3>
+                <form th:action="@{/borrows/return-all/{id}(id=${borrow.id})}" method="post" style="display:inline;"
+                      th:if="${borrow.status == 'BORROWED'}">
+                    <button type="submit" class="btn-custom warning"
+                            onclick="return confirm('Trả tất cả sách?')">
+                        <i class="fas fa-undo-all"></i> Trả tất cả
+                    </button>
+                </form>
+            </div>
+            <div class="card-body-custom" style="padding: 0; overflow-x: auto;">
+                <table class="table-custom">
+                    <thead>
+                    <tr>
+                        <th>Tên sách</th>
+                        <th>Số lượng</th>
+                        <th>Ngày trả</th>
+                        <th>Trạng thái</th>
+                        <th style="text-align: center;">Thao tác</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="detail : ${borrow.details}">
+                        <td>
+                            <strong th:text="${detail.bookTitle}"></strong>
+                        </td>
+                        <td th:text="${detail.quantity}"></td>
+                        <td th:text="${detail.returnDate != null} ? ${#temporals.format(detail.returnDate, 'dd/MM/yyyy')} : '-'"></td>
+                        <td>
+                                    <span class="badge-custom"
+                                          th:classappend="${detail.status == 'BORROWED'} ? 'warning' : 'success'"
+                                          th:text="${detail.status == 'BORROWED'} ? 'Đang mượn' : 'Đã trả'"></span>
+                        </td>
+                        <td style="text-align: center;">
+                            <form th:action="@{/borrows/return/{receiptId}/book/{bookId}(receiptId=${borrow.id}, bookId=${detail.bookId})}"
+                                  method="post" style="display:inline;">
+                                <button type="submit" class="btn-custom success sm"
+                                        th:if="${detail.status == 'BORROWED'}"
+                                        onclick="return confirm('Xác nhận trả sách này?')">
+                                    <i class="fas fa-check"></i> Trả
+                                </button>
+                                <span th:if="${detail.status != 'BORROWED'}" class="text-muted" style="font-size: 13px;">
+                                            <i class="fas fa-check-circle"></i> Đã trả
+                                        </span>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

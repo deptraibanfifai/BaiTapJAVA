@@ -1,0 +1,133 @@
+
+[20:55:12 19/06/2025]  Đăng nhập thành công: admin
+[Thu Jun 19 20:55:12 GMT+07:00 2025]  Đăng nhập thành công: admin
+[20:55:12 19/06/2025]  Ứng dụng đã khởi động lúc Thu Jun 19 20:55:12 GMT+07:00 2025
+[Thu Jun 19 20:55:12 GMT+07:00 2025]  Ứng dụng đã khởi động lúc Thu Jun 19 20:55:12 GMT+07:00 2025
+[20:55:41 19/06/2025]  Chọn quản lý khách hàng
+[Thu Jun 19 20:55:41 GMT+07:00 2025]  Chọn quản lý khách hàng
+[20:55:41 19/06/2025]  Tải dữ liệu khách hàng
+[Thu Jun 19 20:55:41 GMT+07:00 2025]  Tải dữ liệu khách hàng
+[20:56:10 19/06/2025]  Thêm khách hàng: người đẹp trai 
+[Thu Jun 19 20:56:10 GMT+07:00 2025]  Thêm khách hàng: người đẹp trai 
+[20:56:10 19/06/2025]  Tải dữ liệu khách hàng
+[Thu Jun 19 20:56:10 GMT+07:00 2025]  Tải dữ liệu khách hàng
+[20:56:22 19/06/2025]  Chọn quản lý phòng
+[Thu Jun 19 20:56:22 GMT+07:00 2025]  Chọn quản lý phòng
+[20:56:22 19/06/2025]  Tải dữ liệu phòng
+[Thu Jun 19 20:56:22 GMT+07:00 2025]  Tải dữ liệu phòng
+[20:56:24 19/06/2025]  Tải dữ liệu phòng
+[Thu Jun 19 20:56:24 GMT+07:00 2025]  Tải dữ liệu phòng
+[20:56:29 19/06/2025]  Tải dữ liệu phòng
+[Thu Jun 19 20:56:29 GMT+07:00 2025]  Tải dữ liệu phòng
+[20:56:29 19/06/2025]  Tải dữ liệu phòng
+[Thu Jun 19 20:56:29 GMT+07:00 2025]  Tải dữ liệu phòng
+[20:56:30 19/06/2025]  Tải dữ liệu phòng
+[Thu Jun 19 20:56:30 GMT+07:00 2025]  Tải dữ liệu phòng
+[21:08:14 19/06/2025] Đăng nhập thất bại do sai mật khẩu: admin
+[Thu Jun 19 21:08:14 GMT+07:00 2025] Đăng nhập thất bại do sai mật khẩu: admin
+[21:08:23 19/06/2025] Đăng nhập thất bại do sai mật khẩu: admin
+[Thu Jun 19 21:08:23 GMT+07:00 2025] Đăng nhập thất bại do sai mật khẩu: admin
+[21:10:04 19/06/2025] Đăng nhập thất bại do sai mật khẩu: admin
+[Thu Jun 19 21:10:04 GMT+07:00 2025] Đăng nhập thất bại do sai mật khẩu: admin
+[21:11:09 19/06/2025] Đăng nhập thành công cho user: admin
+[Thu Jun 19 21:11:09 GMT+07:00 2025] Đăng nhập thành công cho user: admin
+[21:11:09 19/06/2025]  Ứng dụng đã khởi động lúc Thu Jun 19 21:11:09 GMT+07:00 2025
+[Thu Jun 19 21:11:09 GMT+07:00 2025]  Ứng dụng đã khởi động lúc Thu Jun 19 21:11:09 GMT+07:00 2025
+[21:11:12 19/06/2025]  Chọn quản lý khách hàng
+[Thu Jun 19 21:11:12 GMT+07:00 2025]  Chọn quản lý khách hàng
+[21:11:12 19/06/2025]  Tải dữ liệu khách hàng
+[Thu Jun 19 21:11:12 GMT+07:00 2025]  Tải dữ liệu khách hàng
+[21:11:19 19/06/2025]  Chọn quản lý phòng
+[Thu Jun 19 21:11:19 GMT+07:00 2025]  Chọn quản lý phòng
+[21:11:19 19/06/2025]  Tải dữ liệu phòng
+[Thu Jun 19 21:11:19 GMT+07:00 2025]  Tải dữ liệu phòng
+[21:11:20 19/06/2025]  Tải dữ liệu phòng
+[Thu Jun 19 21:11:20 GMT+07:00 2025]  Tải dữ liệu phòng
+[21:11:48 19/06/2025] Đăng nhập thành công cho user: admin
+[Thu Jun 19 21:11:48 GMT+07:00 2025] Đăng nhập thành công cho user: admin
+[21:11:48 19/06/2025]  Ứng dụng đã khởi động lúc Thu Jun 19 21:11:48 GMT+07:00 2025
+[Thu Jun 19 21:11:48 GMT+07:00 2025]  Ứng dụng đã khởi động lúc Thu Jun 19 21:11:48 GMT+07:00 2025
+[20:09:43 23/06/2025] Đăng nhập thành công cho user: admin
+[20:09:43 23/06/2025]  Ứng dụng đã khởi động lúc Mon Jun 23 20:09:43 GMT+07:00 2025
+[Mon Jun 23 20:09:43 GMT+07:00 2025]  Ứng dụng đã khởi động lúc Mon Jun 23 20:09:43 GMT+07:00 2025
+[Mon Jun 23 20:09:43 GMT+07:00 2025] Đăng nhập thành công cho user: admin
+[20:09:47 23/06/2025]  Chọn quản lý khách hàng
+[Mon Jun 23 20:09:47 GMT+07:00 2025]  Chọn quản lý khách hàng
+[20:09:47 23/06/2025]  Tải dữ liệu khách hàng
+[Mon Jun 23 20:09:47 GMT+07:00 2025]  Tải dữ liệu khách hàng
+[20:09:52 23/06/2025]  Chọn quản lý phòng
+[Mon Jun 23 20:09:52 GMT+07:00 2025]  Chọn quản lý phòng
+[20:09:52 23/06/2025]  Tải dữ liệu phòng
+[Mon Jun 23 20:09:52 GMT+07:00 2025]  Tải dữ liệu phòng
+[20:10:00 23/06/2025]  Tải dữ liệu phòng
+[Mon Jun 23 20:10:00 GMT+07:00 2025]  Tải dữ liệu phòng
+[20:23:15 23/06/2025]  Tải dữ liệu phòng
+[Mon Jun 23 20:23:15 GMT+07:00 2025]  Tải dữ liệu phòng
+[20:33:51 23/06/2025] Người dùng mới đăng ký: hieudeptrai
+[Mon Jun 23 20:33:51 GMT+07:00 2025] Người dùng mới đăng ký: hieudeptrai
+[20:34:11 23/06/2025] Đăng nhập thất bại do sai mật khẩu: hieudeptrai
+[Mon Jun 23 20:34:11 GMT+07:00 2025] Đăng nhập thất bại do sai mật khẩu: hieudeptrai
+[20:34:19 23/06/2025] Đăng nhập thành công cho user: hieudeptrai
+[Mon Jun 23 20:34:19 GMT+07:00 2025] Đăng nhập thành công cho user: hieudeptrai
+[20:34:19 23/06/2025]  Ứng dụng đã khởi động lúc Mon Jun 23 20:34:19 GMT+07:00 2025
+[Mon Jun 23 20:34:19 GMT+07:00 2025]  Ứng dụng đã khởi động lúc Mon Jun 23 20:34:19 GMT+07:00 2025
+[20:34:22 23/06/2025]  Chọn quản lý phòng
+[Mon Jun 23 20:34:22 GMT+07:00 2025]  Chọn quản lý phòng
+[20:34:22 23/06/2025]  Tải dữ liệu phòng
+[Mon Jun 23 20:34:22 GMT+07:00 2025]  Tải dữ liệu phòng
+[20:34:23 23/06/2025]  Chọn quản lý khách hàng
+[Mon Jun 23 20:34:23 GMT+07:00 2025]  Chọn quản lý khách hàng
+[20:34:23 23/06/2025]  Tải dữ liệu khách hàng
+[Mon Jun 23 20:34:23 GMT+07:00 2025]  Tải dữ liệu khách hàng
+[20:43:17 23/06/2025] Người dùng mới đăng ký: 
+[Mon Jun 23 20:43:17 GMT+07:00 2025] Người dùng mới đăng ký: 
+[20:43:22 23/06/2025] Đăng nhập thành công cho user: 
+[Mon Jun 23 20:43:22 GMT+07:00 2025] Đăng nhập thành công cho user: 
+[20:43:22 23/06/2025]  Ứng dụng đã khởi động lúc Mon Jun 23 20:43:22 GMT+07:00 2025
+[Mon Jun 23 20:43:22 GMT+07:00 2025]  Ứng dụng đã khởi động lúc Mon Jun 23 20:43:22 GMT+07:00 2025
+[07:28:57 24/06/2025] Đăng nhập thành công cho user: admin
+[07:28:57 24/06/2025]  Ứng dụng đã khởi động lúc Tue Jun 24 07:28:57 GMT+07:00 2025
+[Tue Jun 24 07:28:57 GMT+07:00 2025] Đăng nhập thành công cho user: admin
+[Tue Jun 24 07:28:57 GMT+07:00 2025]  Ứng dụng đã khởi động lúc Tue Jun 24 07:28:57 GMT+07:00 2025
+[07:29:06 24/06/2025]  Chọn quản lý khách hàng
+[Tue Jun 24 07:29:06 GMT+07:00 2025]  Chọn quản lý khách hàng
+[07:29:06 24/06/2025]  Tải dữ liệu khách hàng
+[Tue Jun 24 07:29:06 GMT+07:00 2025]  Tải dữ liệu khách hàng
+[07:29:08 24/06/2025]  Chọn quản lý phòng
+[Tue Jun 24 07:29:08 GMT+07:00 2025]  Chọn quản lý phòng
+[07:29:08 24/06/2025]  Tải dữ liệu phòng
+[Tue Jun 24 07:29:08 GMT+07:00 2025]  Tải dữ liệu phòng
+[07:29:56 24/06/2025]  Chọn quản lý phòng
+[Tue Jun 24 07:29:56 GMT+07:00 2025]  Chọn quản lý phòng
+[07:29:56 24/06/2025]  Tải dữ liệu phòng
+[Tue Jun 24 07:29:56 GMT+07:00 2025]  Tải dữ liệu phòng
+[07:30:17 24/06/2025]  Chọn quản lý phòng
+[Tue Jun 24 07:30:17 GMT+07:00 2025]  Chọn quản lý phòng
+[07:30:17 24/06/2025]  Tải dữ liệu phòng
+[Tue Jun 24 07:30:17 GMT+07:00 2025]  Tải dữ liệu phòng
+[07:30:19 24/06/2025]  Chọn quản lý khách hàng
+[Tue Jun 24 07:30:19 GMT+07:00 2025]  Chọn quản lý khách hàng
+[07:30:19 24/06/2025]  Tải dữ liệu khách hàng
+[Tue Jun 24 07:30:19 GMT+07:00 2025]  Tải dữ liệu khách hàng
+[07:30:24 24/06/2025]  Chọn quản lý phòng
+[Tue Jun 24 07:30:24 GMT+07:00 2025]  Chọn quản lý phòng
+[07:30:24 24/06/2025]  Tải dữ liệu phòng
+[Tue Jun 24 07:30:24 GMT+07:00 2025]  Tải dữ liệu phòng
+[08:17:40 24/06/2025] Đăng nhập thành công cho user: 
+[08:17:40 24/06/2025]  Ứng dụng đã khởi động lúc Tue Jun 24 08:17:40 GMT+07:00 2025
+[Tue Jun 24 08:17:40 GMT+07:00 2025] Đăng nhập thành công cho user: 
+[Tue Jun 24 08:17:40 GMT+07:00 2025]  Ứng dụng đã khởi động lúc Tue Jun 24 08:17:40 GMT+07:00 2025
+[08:17:41 24/06/2025]  Chọn quản lý phòng
+[Tue Jun 24 08:17:41 GMT+07:00 2025]  Chọn quản lý phòng
+[08:17:41 24/06/2025]  Tải dữ liệu phòng
+[Tue Jun 24 08:17:41 GMT+07:00 2025]  Tải dữ liệu phòng
+[08:17:42 24/06/2025]  Chọn quản lý khách hàng
+[Tue Jun 24 08:17:42 GMT+07:00 2025]  Chọn quản lý khách hàng
+[08:17:42 24/06/2025]  Tải dữ liệu khách hàng
+[Tue Jun 24 08:17:42 GMT+07:00 2025]  Tải dữ liệu khách hàng
+[11:31:29 24/06/2025] Đăng nhập thành công cho user: admin
+[11:31:29 24/06/2025]  Ứng dụng đã khởi động lúc Tue Jun 24 11:31:29 GMT+07:00 2025
+[11:31:39 24/06/2025]  Chọn quản lý khách hàng
+[11:31:39 24/06/2025]  Tải dữ liệu khách hàng
+[11:31:41 24/06/2025]  Chọn quản lý phòng
+[11:31:41 24/06/2025]  Tải dữ liệu phòng

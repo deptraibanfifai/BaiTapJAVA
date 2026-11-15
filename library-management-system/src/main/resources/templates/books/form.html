@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${isEdit} ? 'Sửa sách' : 'Thêm sách mới'">Form Sách</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="aurora-bg">
+    <div class="aurora-layer aurora-1"></div>
+    <div class="aurora-layer aurora-2"></div>
+</div>
+
+<div th:replace="~{layout/sidebar :: sidebar}"></div>
+
+<div class="main-content">
+    <div th:replace="~{layout/header :: header}"></div>
+
+    <div class="content-area">
+        <div class="page-header">
+            <div>
+                <h2>
+                    <i class="fas fa-book-medical"></i>
+                    <span th:text="${isEdit} ? 'Chỉnh sửa sách' : 'Thêm sách mới'"></span>
+                </h2>
+                <p class="page-subtitle">Điền đầy đủ thông tin sách</p>
+            </div>
+            <a th:href="@{/books}" class="btn-glow secondary">
+                <i class="fas fa-arrow-left"></i> Quay lại
+            </a>
+        </div>
+
+        <div class="form-grid">
+            <!-- Thông tin cơ bản -->
+            <div class="glass-card">
+                <div class="card-icon primary">
+                    <i class="fas fa-info-circle"></i>
+                </div>
+                <h3>Thông tin cơ bản</h3>
+                <p class="card-desc">Mã sách, tên và thông tin nhận dạng</p>
+
+                <form th:action="${isEdit} ? @{/books/update/{id}(id=${book.id})} : @{/books/create}"
+                      th:object="${book}" method="post">
+                    <input type="hidden" th:field="*{id}" th:if="${isEdit}"/>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Mã sách <span class="required">*</span></label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-barcode"></i>
+                                <input type="text" class="glass-input" th:field="*{bookCode}"
+                                       placeholder="BK00001" required>
+                            </div>
+                            <div class="field-error" th:if="${#fields.hasErrors('bookCode')}"
+                                 th:errors="*{bookCode}"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>ISBN</label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-fingerprint"></i>
+                                <input type="text" class="glass-input" th:field="*{isbn}"
+                                       placeholder="978-604-...">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Tên sách <span class="required">*</span></label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-book"></i>
+                            <input type="text" class="glass-input" th:field="*{title}"
+                                   placeholder="Nhập tên sách..." required>
+                        </div>
+                        <div class="field-error" th:if="${#fields.hasErrors('title')}"
+                             th:errors="*{title}"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Mô tả</label>
+                        <div class="input-wrapper textarea">
+                            <i class="fas fa-align-left"></i>
+                            <textarea class="glass-input" th:field="*{description}"
+                                      rows="4" placeholder="Mô tả nội dung sách..."></textarea>
+                        </div>
+                    </div>
+            </div>
+
+            <!-- Phân loại -->
+            <div class="glass-card">
+                <div class="card-icon success">
+                    <i class="fas fa-tags"></i>
+                </div>
+                <h3>Phân loại</h3>
+                <p class="card-desc">Tác giả và danh mục</p>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Tác giả <span class="required">*</span></label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-user-edit"></i>
+                            <select class="glass-input" th:field="*{authorId}" required>
+                                <option value="">-- Chọn tác giả --</option>
+                                <option th:each="author : ${authors}"
+                                        th:value="${author.id}"
+                                        th:text="${author.name}"></option>
+                            </select>
+                        </div>
+                        <div class="field-error" th:if="${#fields.hasErrors('authorId')}"
+                             th:errors="*{authorId}"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Danh mục <span class="required">*</span></label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-folder"></i>
+                            <select class="glass-input" th:field="*{categoryId}" required>
+                                <option value="">-- Chọn danh mục --</option>
+                                <option th:each="category : ${categories}"
+                                        th:value="${category.id}"
+                                        th:text="${category.name}"></option>
+                            </select>
+                        </div>
+                        <div class="field-error" th:if="${#fields.hasErrors('categoryId')}"
+                             th:errors="*{categoryId}"></div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Nhà xuất bản</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-building"></i>
+                            <input type="text" class="glass-input" th:field="*{publisher}"
+                                   placeholder="NXB...">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Năm xuất bản</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-calendar"></i>
+                            <input type="number" class="glass-input" th:field="*{publishYear}"
+                                   min="1900" max="2099" placeholder="2024">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Số lượng & Giá -->
+            <div class="glass-card">
+                <div class="card-icon warning">
+                    <i class="fas fa-coins"></i>
+                </div>
+                <h3>Số lượng & Giá</h3>
+                <p class="card-desc">Quản lý tồn kho và giá bán</p>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Tổng số lượng <span class="required">*</span></label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-boxes-stacked"></i>
+                            <input type="number" class="glass-input" th:field="*{quantity}"
+                                   min="0" required>
+                        </div>
+                        <div class="field-error" th:if="${#fields.hasErrors('quantity')}"
+                             th:errors="*{quantity}"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Giá (VNĐ)</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-dollar-sign"></i>
+                            <input type="number" class="glass-input" th:field="*{price}"
+                                   min="0" step="1000" placeholder="50000">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-glow primary">
+                        <i class="fas fa-save"></i>
+                        <span th:text="${isEdit} ? 'Cập nhật sách' : 'Lưu sách'"></span>
+                    </button>
+                    <a th:href="@{/books}" class="btn-glow secondary">
+                        <i class="fas fa-times"></i> Hủy
+                    </a>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
